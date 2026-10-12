@@ -1,32 +1,118 @@
 <?php
-// Partial: Footer
+// Partial: Footer (Refactored to match Stitch Institutional Standard)
 ?>
 <?php if (Auth::check()): ?>
-<footer style="border-top: 1px solid var(--border-glass); padding: 32px 0 24px; margin-top: 60px; background: rgba(10, 16, 30, 0.6);">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <div style="width: 28px; height: 28px; border-radius: 6px; background: linear-gradient(135deg, #06b6d4, #0284c7); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px;">
-                <i class="fa-solid fa-anchor"></i>
+<footer class="w-full bg-surface-container-lowest border-t border-surface-container mt-16 py-8">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-primary-container text-secondary flex items-center justify-center font-bold">
+                <span class="material-symbols-outlined text-[18px]">anchor</span>
             </div>
             <div>
-                <div style="font-weight: 700; color: #fff; font-size: 13px;">Portal Hub Aplikasi Kelautan</div>
-                <div style="font-size: 11px; color: var(--text-muted);">Sistem Wrapper SPA & GAS Terpadu &bull; v1.0 Production</div>
+                <div class="font-bold text-xs text-primary leading-tight">Portal Hub Kelautan RI</div>
+                <div class="text-[11px] text-on-surface-variant">Sistem Wrapper Micro-App Terpadu &bull; Standard ISO/IEC 27001 KKP</div>
             </div>
         </div>
 
-        <div style="display: flex; gap: 20px; font-size: 12px; color: var(--text-muted);">
-            <span><i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> Sandboxed iFrame NFR 1</span>
-            <span><i class="fa-solid fa-bolt" style="color: #06b6d4;"></i> Ultra Low-latency Routing</span>
-            <span><i class="fa-solid fa-database" style="color: #f59e0b;"></i> MariaDB / SQLite Ready</span>
+        <div class="flex items-center gap-4 text-xs text-on-surface-variant font-medium">
+            <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px] text-secondary">verified_user</span>
+                <span>Sandbox Runtime Strict</span>
+            </span>
+            <span class="hidden sm:inline text-outline-variant">•</span>
+            <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px] text-secondary">speed</span>
+                <span>Sub-500ms Clean Routing</span>
+            </span>
+            <span class="hidden sm:inline text-outline-variant">•</span>
+            <span>&copy; <?= date('Y') ?> Kementerian Kelautan dan Perikanan</span>
         </div>
     </div>
 </footer>
 <?php endif; ?>
 
 <!-- Toast Notifications Container -->
-<div id="toastContainer" class="toast-container"></div>
+<div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2"></div>
 
-<!-- Custom Client Script -->
-<script src="<?= url('/assets/js/main.js') ?>"></script>
+<script>
+// User Menu Dropdown Handler
+document.addEventListener('DOMContentLoaded', () => {
+    const userBtn = document.getElementById('stitchUserBtn');
+    const userDropdown = document.getElementById('stitchUserDropdown');
+
+    if (userBtn && userDropdown) {
+        userBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userDropdown.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!userDropdown.contains(e.target) && !userBtn.contains(e.target)) {
+                userDropdown.classList.add('hidden');
+            }
+        });
+    }
+
+    // Bookmark Toggle Ajax Handler
+    document.querySelectorAll('.bookmark-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const appId = btn.getAttribute('data-app-id');
+            const icon = btn.querySelector('.material-symbols-outlined');
+
+            try {
+                const formData = new FormData();
+                formData.append('app_id', appId);
+
+                const response = await fetch(window.PORTAL_BASE_URL + '/api/bookmark', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    if (data.is_bookmarked) {
+                        btn.classList.add('text-secondary');
+                        btn.classList.remove('text-on-surface-variant');
+                        if (icon) icon.style.fontVariationSettings = "'FILL' 1";
+                        showStitchToast('Aplikasi ditambahkan ke favorit!', 'check_circle');
+                    } else {
+                        btn.classList.remove('text-secondary');
+                        btn.classList.add('text-on-surface-variant');
+                        if (icon) icon.style.fontVariationSettings = "'FILL' 0";
+                        showStitchToast('Aplikasi dihapus dari favorit.', 'info');
+
+                        if (window.location.search.includes('view=favorites')) {
+                            const cardItem = btn.closest('.app-card');
+                            if (cardItem) cardItem.remove();
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error('Bookmark error:', err);
+            }
+        });
+    });
+});
+
+function showStitchToast(message, iconName = 'check_circle') {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = 'flex items-center gap-2.5 px-4 py-3 bg-surface-container-lowest border border-surface-container shadow-lg rounded-xl text-on-surface text-xs font-semibold transform transition-all duration-300';
+    toast.innerHTML = `<span class="material-symbols-outlined text-[18px] text-secondary">${iconName}</span><span>${message}</span>`;
+
+    container.appendChild(toast);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        setTimeout(() => toast.remove(), 300);
+    }, 3200);
+}
+</script>
 </body>
 </html>

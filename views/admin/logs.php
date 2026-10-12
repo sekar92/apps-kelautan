@@ -1,116 +1,102 @@
 <?php
-// View: Audit Trail & Analytics Logs (FR 6.1 & FR 6.2)
+// View: Audit Trail & Analytics Logs (Refactored to match Stitch Standard)
 require __DIR__ . '/../partials/header.php';
 ?>
 
-<main class="container" style="padding-top: 24px; padding-bottom: 60px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; flex-wrap: wrap; gap: 16px;">
-        <div>
-            <a href="<?= url('/admin/reviews') ?>" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">
-                <i class="fa-solid fa-arrow-left"></i> Kembali ke Panel Tata Kelola
-            </a>
-            <h1 style="font-family: var(--font-heading); font-size: 26px; font-weight: 800; color: #fff;">
-                Audit Trail & Log Aktivitas Sistem
-            </h1>
-            <p style="color: var(--text-secondary); font-size: 14px;">
-                Rekam jejak seluruh aktivitas CRUD administrator, evaluasi aplikasi, dan riwayat akses pengguna (FR 6.2).
-            </p>
-        </div>
-    </div>
-
-    <!-- Analytics Summary Cards (FR 6.1) -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 30px;">
-        <div style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 20px;">
-            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">Total Peluncuran Aplikasi (Hits)</div>
-            <div style="font-family: var(--font-heading); font-size: 28px; font-weight: 800; color: var(--ocean-cyan);">
-                <?= number_format($stats['total_hits']) ?>
-            </div>
-            <div style="font-size: 11px; color: #10b981; margin-top: 4px;">
-                <i class="fa-solid fa-chart-line"></i> Hit Counter Terakumulasi
+<main class="w-full flex-1 bg-surface pt-4">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-8 flex flex-col gap-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+                <a href="<?= url('/admin/reviews') ?>" class="inline-flex items-center gap-1.5 text-xs text-secondary font-semibold hover:underline mb-1">
+                    <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+                    <span>Kembali ke Review Board</span>
+                </a>
+                <h1 class="text-2xl font-bold text-primary tracking-tight">Audit Trail & Log Aktivitas Sistem</h1>
+                <p class="text-xs text-on-surface-variant">Rekam jejak aktivitas operasional, keputusan evaluasi admin, dan peluncuran modul (FR 6.1 & FR 6.2).</p>
             </div>
         </div>
 
-        <div style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 20px;">
-            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">Aplikasi Disetujui</div>
-            <div style="font-family: var(--font-heading); font-size: 28px; font-weight: 800; color: #10b981;">
-                <?= $stats['approved_apps'] ?> <span style="font-size: 14px; color: var(--text-secondary); font-weight: 400;">/ <?= $stats['total_apps'] ?></span>
+        <!-- Analytics Metric Cards (Stitch Standard FR 6.1) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-surface-container-lowest p-5 rounded-2xl border border-surface-container/60 shadow-xs flex flex-col justify-between">
+                <span class="text-xs font-semibold text-on-surface-variant">Total Peluncuran (Hits)</span>
+                <div class="text-3xl font-bold text-secondary my-1"><?= number_format($stats['total_hits']) ?></div>
+                <span class="text-[10px] text-secondary font-bold uppercase tracking-wider flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]">bolt</span> Realtime Counter
+                </span>
             </div>
-            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
-                Aktif di Katalog Publik
+
+            <div class="bg-surface-container-lowest p-5 rounded-2xl border border-surface-container/60 shadow-xs flex flex-col justify-between">
+                <span class="text-xs font-semibold text-on-surface-variant">Aplikasi Disetujui</span>
+                <div class="text-3xl font-bold text-primary my-1"><?= $stats['approved_apps'] ?> <span class="text-xs text-on-surface-variant font-normal">/ <?= $stats['total_apps'] ?></span></div>
+                <span class="text-[10px] text-secondary font-bold uppercase tracking-wider">Aktif di Katalog Publik</span>
+            </div>
+
+            <div class="bg-surface-container-lowest p-5 rounded-2xl border border-surface-container/60 shadow-xs flex flex-col justify-between">
+                <span class="text-xs font-semibold text-on-surface-variant">Antrean Review</span>
+                <div class="text-3xl font-bold text-on-surface my-1"><?= $stats['pending_apps'] ?></div>
+                <span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Menunggu Evaluasi IT</span>
+            </div>
+
+            <div class="bg-surface-container-lowest p-5 rounded-2xl border border-surface-container/60 shadow-xs flex flex-col justify-between">
+                <span class="text-xs font-semibold text-on-surface-variant">Pengguna Terdaftar</span>
+                <div class="text-3xl font-bold text-primary my-1"><?= $stats['total_users'] ?></div>
+                <span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Akun Pegawai Aktif</span>
             </div>
         </div>
 
-        <div style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 20px;">
-            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">Antrean Review</div>
-            <div style="font-family: var(--font-heading); font-size: 28px; font-weight: 800; color: #f59e0b;">
-                <?= $stats['pending_apps'] ?>
+        <!-- Audit Trail Table -->
+        <div class="bg-surface-container-lowest rounded-2xl shadow-xs border border-surface-container/60 overflow-hidden">
+            <div class="p-4 bg-surface-container-low border-b border-surface-container flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-secondary text-[20px]">history</span>
+                    <span class="font-bold text-xs text-primary">Rekam Jejak 100 Aktivitas Terkini</span>
+                </div>
+                <span class="text-[11px] text-on-surface-variant font-mono">Immutable Audit Log</span>
             </div>
-            <div style="font-size: 11px; color: #f59e0b; margin-top: 4px;">
-                Menunggu Verifikasi Admin
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead class="bg-surface-container-low text-on-surface-variant uppercase text-[10px] font-bold tracking-wider border-b border-surface-container">
+                        <tr>
+                            <th class="p-4">Waktu (WIB)</th>
+                            <th class="p-4">Aktor Pengguna</th>
+                            <th class="p-4">Action Code</th>
+                            <th class="p-4">Rincian Peristiwa</th>
+                            <th class="p-4">IP Address</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-surface-container">
+                        <?php foreach ($logs as $log): ?>
+                        <tr class="hover:bg-surface-container-low/50 transition-colors">
+                            <td class="p-4 whitespace-nowrap text-on-surface-variant font-mono text-[11px]">
+                                <?= date('d M Y, H:i:s', strtotime($log['created_at'])) ?>
+                            </td>
+                            <td class="p-4">
+                                <?php if (!empty($log['user_name'])): ?>
+                                    <div class="font-bold text-on-surface"><?= e($log['user_name']) ?></div>
+                                    <div class="text-[10px] text-on-surface-variant font-mono"><?= e($log['user_email']) ?></div>
+                                <?php else: ?>
+                                    <span class="text-on-surface-variant font-medium">Sistem Daemon</span>
+                                <?php endif; ?>
+                            </td>
+                            <td class="p-4">
+                                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-surface-container text-secondary">
+                                    <?= e($log['action']) ?>
+                                </span>
+                            </td>
+                            <td class="p-4 text-on-surface max-w-md font-medium">
+                                <?= e($log['details']) ?>
+                            </td>
+                            <td class="p-4 text-on-surface-variant font-mono text-[11px]">
+                                <?= e($log['ip_address']) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
-
-        <div style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 20px;">
-            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">Total Pengguna Terdaftar</div>
-            <div style="font-family: var(--font-heading); font-size: 28px; font-weight: 800; color: #8b5cf6;">
-                <?= $stats['total_users'] ?>
-            </div>
-            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
-                Akun Pegawai & Administrator
-            </div>
-        </div>
-    </div>
-
-    <!-- Logs Table -->
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Waktu (Timestamp)</th>
-                    <th>Aktor / Pengguna</th>
-                    <th>Aksi (Action Code)</th>
-                    <th>Rincian Aktivitas</th>
-                    <th>IP Address</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($logs as $log): ?>
-                <tr>
-                    <td style="white-space: nowrap; font-size: 12px; color: var(--text-secondary);">
-                        <i class="fa-regular fa-clock" style="margin-right: 4px;"></i>
-                        <?= date('d M Y, H:i:s', strtotime($log['created_at'])) ?>
-                    </td>
-                    <td>
-                        <?php if (!empty($log['user_name'])): ?>
-                            <div style="font-weight: 600; color: #fff; font-size: 13px;"><?= e($log['user_name']) ?></div>
-                            <div style="font-size: 11px; color: var(--text-muted);"><?= e($log['user_email']) ?></div>
-                        <?php else: ?>
-                            <span style="color: var(--text-muted); font-size: 12px;">Sistem Otomatis</span>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php
-                        $action = $log['action'];
-                        $actionColor = '#06b6d4';
-                        if (strpos($action, 'APPROVE') !== false) $actionColor = '#10b981';
-                        elseif (strpos($action, 'REJECT') !== false) $actionColor = '#ef4444';
-                        elseif (strpos($action, 'REVISION') !== false) $actionColor = '#8b5cf6';
-                        elseif (strpos($action, 'LOGIN') !== false) $actionColor = '#3b82f6';
-                        ?>
-                        <code style="background: rgba(255,255,255,0.06); color: <?= $actionColor ?>; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">
-                            <?= e($action) ?>
-                        </code>
-                    </td>
-                    <td>
-                        <span style="font-size: 13px; color: var(--text-primary);"><?= e($log['details']) ?></span>
-                    </td>
-                    <td>
-                        <code style="font-size: 11px; color: var(--text-muted);"><?= e($log['ip_address']) ?></code>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
     </div>
 </main>
 

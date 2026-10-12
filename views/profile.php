@@ -1,76 +1,81 @@
 <?php
-// View: User Profile (FR 1.3)
+// View: User Profile (Refactored to match Stitch Standard)
 require __DIR__ . '/partials/header.php';
 ?>
 
-<main class="container" style="padding-top: 24px; padding-bottom: 60px;">
-    <div style="max-width: 800px; margin: 0 auto;">
-        <h1 style="font-family: var(--font-heading); font-size: 26px; font-weight: 800; color: #fff; margin-bottom: 6px;">
-            Profil & Pengaturan Akun
-        </h1>
-        <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 28px;">
-            Kelola data diri, instansi, dan perbarui kata sandi untuk keamanan akun Anda (FR 1.3).
-        </p>
+<main class="w-full flex-1 bg-surface pt-4">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-8">
+        <div class="max-w-2xl mx-auto flex flex-col gap-6">
+            <div>
+                <a href="<?= url('/') ?>" class="inline-flex items-center gap-1.5 text-xs text-secondary font-semibold hover:underline mb-1">
+                    <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+                    <span>Kembali ke Katalog</span>
+                </a>
+                <h1 class="text-2xl font-bold text-primary tracking-tight">Profil & Keamanan Akun</h1>
+                <p class="text-xs text-on-surface-variant">Kelola identitas dinas dan perbarui kata sandi Anda (FR 1.3).</p>
+            </div>
 
-        <!-- Informasi Profil -->
-        <div style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-card); margin-bottom: 24px;">
-            <h2 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                <i class="fa-solid fa-id-badge" style="color: var(--ocean-cyan);"></i> Data Diri & Instansi
-            </h2>
-
-            <form action="<?= url('/profile') ?>" method="POST">
-                <input type="hidden" name="csrf_token" value="<?= Auth::csrfToken() ?>">
-
-                <div class="form-group">
-                    <label class="form-label">Alamat Email (Akun)</label>
-                    <input type="email" class="form-control" value="<?= e($currentUser['email']) ?>" disabled style="opacity: 0.7; cursor: not-allowed;">
-                    <div class="form-hint">Email akun dikelola terpusat oleh Administrator IT.</div>
+            <!-- Profile Info Form -->
+            <div class="bg-surface-container-lowest p-6 sm:p-8 rounded-2xl shadow-xs border border-surface-container/60">
+                <div class="flex items-center gap-2 pb-3 border-b border-surface-container mb-4">
+                    <span class="material-symbols-outlined text-secondary text-[22px]">badge</span>
+                    <h2 class="font-bold text-sm text-primary">Data Identitas Pegawai</h2>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label" for="userName">Nama Lengkap</label>
-                    <input type="text" id="userName" name="name" class="form-control" value="<?= e($currentUser['name']) ?>" required>
+                <form action="<?= url('/profile') ?>" method="POST" class="space-y-4">
+                    <input type="hidden" name="csrf_token" value="<?= Auth::csrfToken() ?>">
+
+                    <div>
+                        <label class="block text-xs font-bold text-on-surface mb-1">Alamat Email Dinas</label>
+                        <input type="email" value="<?= e($currentUser['email']) ?>" disabled class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container text-on-surface-variant text-xs cursor-not-allowed border border-surface-container font-mono">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-on-surface mb-1">Nama Lengkap</label>
+                        <input type="text" name="name" value="<?= e($currentUser['name']) ?>" required class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low text-on-surface text-xs border border-surface-container focus:ring-2 focus:ring-secondary/40 focus:outline-none font-medium">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-on-surface mb-1">Instansi / Unit Kerja</label>
+                        <input type="text" name="department" value="<?= e($currentUser['department'] ?? 'Dinas Kelautan & Perikanan') ?>" required class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low text-on-surface text-xs border border-surface-container focus:ring-2 focus:ring-secondary/40 focus:outline-none font-medium">
+                    </div>
+
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-primary-container hover:bg-tertiary-container text-on-primary text-xs font-bold transition-colors shadow-xs">
+                        Simpan Perubahan Profil
+                    </button>
+                </form>
+            </div>
+
+            <!-- Password Form -->
+            <div class="bg-surface-container-lowest p-6 sm:p-8 rounded-2xl shadow-xs border border-surface-container/60">
+                <div class="flex items-center gap-2 pb-3 border-b border-surface-container mb-4">
+                    <span class="material-symbols-outlined text-secondary text-[22px]">key</span>
+                    <h2 class="font-bold text-sm text-primary">Ganti Kata Sandi</h2>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label" for="userDept">Unit Kerja / Instansi</label>
-                    <input type="text" id="userDept" name="department" class="form-control" value="<?= e($currentUser['department'] ?? 'Kelautan & Perikanan') ?>" required>
-                </div>
+                <form action="<?= url('/profile/password') ?>" method="POST" class="space-y-4">
+                    <input type="hidden" name="csrf_token" value="<?= Auth::csrfToken() ?>">
 
-                <button type="submit" class="btn btn-primary" style="margin-top: 8px;">
-                    <i class="fa-solid fa-floppy-disk"></i> Simpan Profil
-                </button>
-            </form>
-        </div>
+                    <div>
+                        <label class="block text-xs font-bold text-on-surface mb-1">Kata Sandi Saat Ini</label>
+                        <input type="password" name="current_password" required class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low text-on-surface text-xs border border-surface-container focus:ring-2 focus:ring-secondary/40 focus:outline-none">
+                    </div>
 
-        <!-- Ubah Kata Sandi -->
-        <div style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-card);">
-            <h2 style="font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                <i class="fa-solid fa-key" style="color: var(--amber-gold);"></i> Ganti Kata Sandi
-            </h2>
+                    <div>
+                        <label class="block text-xs font-bold text-on-surface mb-1">Kata Sandi Baru</label>
+                        <input type="password" name="new_password" required minlength="6" class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low text-on-surface text-xs border border-surface-container focus:ring-2 focus:ring-secondary/40 focus:outline-none">
+                    </div>
 
-            <form action="<?= url('/profile/password') ?>" method="POST">
-                <input type="hidden" name="csrf_token" value="<?= Auth::csrfToken() ?>">
+                    <div>
+                        <label class="block text-xs font-bold text-on-surface mb-1">Konfirmasi Kata Sandi Baru</label>
+                        <input type="password" name="confirm_password" required minlength="6" class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-low text-on-surface text-xs border border-surface-container focus:ring-2 focus:ring-secondary/40 focus:outline-none">
+                    </div>
 
-                <div class="form-group">
-                    <label class="form-label" for="curPass">Kata Sandi Saat Ini</label>
-                    <input type="password" id="curPass" name="current_password" class="form-control" placeholder="••••••••" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="newPass">Kata Sandi Baru</label>
-                    <input type="password" id="newPass" name="new_password" class="form-control" placeholder="Minimal 6 karakter" required minlength="6">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="confPass">Konfirmasi Kata Sandi Baru</label>
-                    <input type="password" id="confPass" name="confirm_password" class="form-control" placeholder="Ulangi kata sandi baru" required minlength="6">
-                </div>
-
-                <button type="submit" class="btn btn-warning" style="margin-top: 8px;">
-                    <i class="fa-solid fa-lock"></i> Perbarui Kata Sandi
-                </button>
-            </form>
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-secondary text-on-secondary hover:bg-on-secondary-container text-xs font-bold transition-colors shadow-xs">
+                        Perbarui Kata Sandi
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </main>
