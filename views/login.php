@@ -11,7 +11,7 @@ if (isset($_GET['expired'])) {
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Masuk - Portal Hub Kelautan KKP RI</title>
+    <title>Masuk - Apps Hub Kelautan.ID</title>
     
     <!-- Google Fonts & Material Symbols -->
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -60,12 +60,12 @@ if (isset($_GET['expired'])) {
             </div>
             
             <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-secondary-container/30 text-on-secondary-container text-[11px] font-bold uppercase tracking-wider mb-2">
-                KKP RI • SSO Portal
+                Application Hub by Kelautan.ID
             </div>
 
-            <h1 class="text-2xl font-bold text-primary tracking-tight">Portal Hub Kelautan</h1>
+            <h1 class="text-2xl font-bold text-primary tracking-tight">Apps Hub Kelautan.ID</h1>
             <p class="text-xs text-on-surface-variant mt-1 max-w-xs">
-                Satu pintu masuk seluruh aplikasi mikro internal, Google Apps Script, dan sistem operasional pelabuhan.
+                Pintu masuk seluruh aplikasi mikro internal milik Kelautan.ID
             </p>
         </div>
 
@@ -87,7 +87,7 @@ if (isset($_GET['expired'])) {
             <input type="hidden" name="csrf_token" value="<?= Auth::csrfToken() ?>">
 
             <div>
-                <label class="block text-xs font-bold text-on-surface mb-1.5" for="email">Alamat Email Dinas</label>
+                <label class="block text-xs font-bold text-on-surface mb-1.5" for="email">Alamat Email</label>
                 <div class="relative">
                     <span class="material-symbols-outlined absolute left-3.5 top-3 text-[18px] text-on-surface-variant">mail</span>
                     <input type="email" id="email" name="email" class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface-container-low text-on-surface text-xs focus:ring-2 focus:ring-secondary/40 focus:outline-none border border-surface-container/60 transition-all font-medium" placeholder="nama@kelautan.id" required autofocus>
@@ -107,31 +107,6 @@ if (isset($_GET['expired'])) {
                 <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </button>
         </form>
-
-        <!-- Quick Demo Switcher (Stitch Standard) -->
-        <div class="mt-8 pt-5 border-t border-surface-container text-center">
-            <div class="text-[10px] uppercase font-bold tracking-wider text-on-surface-variant mb-2.5">
-                Akses Cepat Akun Demo Siap Pakai
-            </div>
-            <div class="grid grid-cols-2 gap-2">
-                <button type="button" class="py-2 px-3 rounded-xl bg-surface-container hover:bg-surface-container-high text-xs font-semibold text-on-surface flex items-center justify-center gap-1.5 transition-colors" onclick="fillDemo('admin@kelautan.id', 'admin123')">
-                    <span class="material-symbols-outlined text-[16px] text-secondary">shield_person</span>
-                    <span>Admin IT</span>
-                </button>
-                <button type="button" class="py-2 px-3 rounded-xl bg-surface-container hover:bg-surface-container-high text-xs font-semibold text-on-surface flex items-center justify-center gap-1.5 transition-colors" onclick="fillDemo('user@kelautan.id', 'user123')">
-                    <span class="material-symbols-outlined text-[16px] text-secondary">person</span>
-                    <span>Pengguna Biasa</span>
-                </button>
-            </div>
-        </div>
     </div>
-
-    <script>
-    function fillDemo(email, pass) {
-        document.getElementById('email').value = email;
-        document.getElementById('password').value = pass;
-        document.getElementById('loginForm').submit();
-    }
-    </script>
 </body>
 </html>

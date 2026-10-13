@@ -20,7 +20,7 @@ $revisionCount = count(array_filter($myApps, fn($a) => $a['status'] === 'revisio
                         </span>
                         <span class="text-outline text-xs">•</span>
                         <span class="text-secondary text-xs font-semibold flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Sandboxing Terenkripsi KKP
+                            <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Sandboxing Terenkripsi Kelautan.ID
                         </span>
                     </div>
 
@@ -29,7 +29,7 @@ $revisionCount = count(array_filter($myApps, fn($a) => $a['status'] === 'revisio
                     </h1>
 
                     <p class="text-sm text-on-surface-variant leading-relaxed">
-                        Daftarkan aplikasi Google Apps Script (GAS) atau TypeScript SPA internal Anda untuk ditinjau oleh Tim IT Kementerian Kelautan dan Perikanan sebelum diterbitkan ke katalog resmi.
+                        Daftarkan aplikasi Google Apps Script (GAS) atau web app internal Anda untuk ditinjau oleh Tim IT Kelautan.ID sebelum diterbitkan ke katalog resmi.
                     </p>
                 </div>
 
@@ -71,7 +71,7 @@ $revisionCount = count(array_filter($myApps, fn($a) => $a['status'] === 'revisio
                 <!-- Compliance Protocol Info Chip -->
                 <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface text-xs font-medium">
                     <span class="material-symbols-outlined text-[16px] text-secondary">verified_user</span>
-                    <span>Sandbox Isolation: ISO/IEC 27001 KKP Standard compliant</span>
+                    <span>Sandbox Isolation: ISO/IEC 27001 Kelautan.ID Standard compliant</span>
                 </div>
             </div>
         </div>

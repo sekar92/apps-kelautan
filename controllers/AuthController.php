@@ -8,7 +8,7 @@ class AuthController {
         if (Auth::check()) {
             redirect('/');
         }
-        $pageTitle = "Masuk ke Portal - Hub Aplikasi Kelautan";
+        $pageTitle = "Masuk - Apps Hub Kelautan.ID";
         require __DIR__ . '/../views/login.php';
     }
 
@@ -53,7 +53,7 @@ class AuthController {
     public function showProfile(): void {
         Auth::requireLogin();
         $currentUser = User::findById(Auth::id());
-        $pageTitle = "Profil Akun - Portal Hub Kelautan";
+        $pageTitle = "Profil Akun - Apps Hub Kelautan.ID";
         require __DIR__ . '/../views/profile.php';
     }
 

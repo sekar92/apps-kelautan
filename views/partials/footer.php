@@ -9,8 +9,8 @@
                 <span class="material-symbols-outlined text-[18px]">anchor</span>
             </div>
             <div>
-                <div class="font-bold text-xs text-primary leading-tight">Portal Hub Kelautan RI</div>
-                <div class="text-[11px] text-on-surface-variant">Sistem Wrapper Micro-App Terpadu &bull; Standard ISO/IEC 27001 KKP</div>
+                <div class="font-bold text-xs text-primary leading-tight">Apps Hub Kelautan.ID</div>
+                <div class="text-[11px] text-on-surface-variant">Application Hub by Kelautan.ID &bull; Standard ISO/IEC 27001 Kelautan.ID</div>
             </div>
         </div>
 
@@ -25,7 +25,7 @@
                 <span>Sub-500ms Clean Routing</span>
             </span>
             <span class="hidden sm:inline text-outline-variant">•</span>
-            <span>&copy; <?= date('Y') ?> Kementerian Kelautan dan Perikanan</span>
+            <span>&copy; <?= date('Y') ?> Kelautan.ID</span>
         </div>
     </div>
 </footer>

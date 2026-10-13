@@ -11,7 +11,7 @@ $activeFilter = $_GET['filter'] ?? 'pending';
             <div class="flex flex-col gap-1.5">
                 <div class="flex items-center gap-2">
                     <span class="text-[10px] font-bold uppercase tracking-wider text-secondary px-2.5 py-0.5 bg-secondary-container/20 rounded-full">
-                        Pusdatin & Direktorat Jenderal KKP
+                        Pusat Data Kelautan.ID
                     </span>
                     <span class="text-outline-variant">•</span>
                     <span class="text-xs text-on-surface-variant font-medium">Protokol Keamanan Level 3 (SANDBOX-STRICT NFR 1)</span>
@@ -85,7 +85,7 @@ $activeFilter = $_GET['filter'] ?? 'pending';
 
             <div class="flex items-center gap-1.5 text-on-surface-variant text-xs pr-2">
                 <span class="material-symbols-outlined text-[16px] text-secondary">filter_alt</span>
-                <span>Proses Governance KKP RI</span>
+                <span>Proses Governance Kelautan.ID</span>
             </div>
         </div>
 
@@ -208,7 +208,7 @@ $activeFilter = $_GET['filter'] ?? 'pending';
                                 <span class="material-symbols-outlined text-primary text-[20px]">gavel</span>
                                 <span class="text-xs font-bold text-primary">Keputusan Tata Kelola & Evaluasi Rilis</span>
                             </div>
-                            <span class="text-[10px] font-bold text-on-surface-variant uppercase">Aturan Standar KKP RI 2025</span>
+                            <span class="text-[10px] font-bold text-on-surface-variant uppercase">Aturan Standar Kelautan.ID 2026</span>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">

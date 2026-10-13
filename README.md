@@ -1,6 +1,6 @@
-# Portal Hub Aplikasi Kelautan (Apps Portal Kelautan)
+# Apps Hub Kelautan.ID (Application Hub by Kelautan.ID)
 
-Platform terpadu berbasis web berarsitektur *Single Page Application (SPA) wrapper* yang berfungsi sebagai hub pusat untuk menghosting, mengelola, mengamankan, dan mengakses seluruh aplikasi mikro internal (Google Apps Script / GAS dan Web SPA) di lingkungan Kementerian / Dinas Kelautan & Perikanan.
+Platform terpadu berbasis web berarsitektur *Single Page Application (SPA) wrapper* yang berfungsi sebagai hub pusat untuk menghosting, mengelola, mengamankan, dan mengakses seluruh aplikasi mikro internal (Google Apps Script / GAS dan Web SPA) milik Kelautan.ID.
 
 Aplikasi ini dibangun sesuai spesifikasi **[Product Requirements Document (PRD)](apps-kelautan_PRD.md)** dan **[Pre-Coding Architecture Plan](pre_coding_checklist_rencana_arsitektur.md)**.
 

@@ -9,14 +9,14 @@ class SubmissionController {
         Auth::requireLogin();
         $userId = Auth::id();
         $myApps = Application::getByUser($userId);
-        $pageTitle = "Pengajuan Aplikasi Saya - Portal Hub Kelautan";
+        $pageTitle = "Pengajuan Aplikasi Saya - Apps Hub Kelautan.ID";
         require __DIR__ . '/../views/my_apps.php';
     }
 
     public function showCreate(): void {
         Auth::requireLogin();
         $categories = Category::getAll();
-        $pageTitle = "Ajukan Aplikasi Baru - Portal Hub Kelautan";
+        $pageTitle = "Ajukan Aplikasi Baru - Apps Hub Kelautan.ID";
         require __DIR__ . '/../views/submit_app.php';
     }
 
@@ -104,7 +104,7 @@ class SubmissionController {
         }
 
         $categories = Category::getAll();
-        $pageTitle = "Perbarui Aplikasi: " . $app['title'] . " - Portal Hub Kelautan";
+        $pageTitle = "Perbarui Aplikasi: " . $app['title'] . " - Apps Hub Kelautan.ID";
         require __DIR__ . '/../views/edit_app.php';
     }
 

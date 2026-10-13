@@ -31,7 +31,7 @@ class AppController {
         // Recently used apps widget (FR 2.5)
         $recentlyUsed = Application::getRecentlyUsed($currentUser['id'], 4);
 
-        $pageTitle = "Katalog Aplikasi - Portal Hub Kelautan";
+        $pageTitle = "Katalog Aplikasi - Apps Hub Kelautan.ID";
         require __DIR__ . '/../views/dashboard.php';
     }
 
@@ -81,7 +81,7 @@ class AppController {
             'portal_source' => 'apps.kelautan.id'
         ]);
 
-        $pageTitle = $app['title'] . " - Portal Hub Kelautan";
+        $pageTitle = $app['title'] . " - Apps Hub Kelautan.ID";
         require __DIR__ . '/../views/app_view.php';
     }
 

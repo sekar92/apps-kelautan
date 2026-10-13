@@ -199,7 +199,7 @@ class Database {
                 4, // operasional
                 2,
                 'https://example.com/demo-app-logbook',
-                'Pencatatan digital hasil tangkapan harian nahkoda: jenis ikan, perkiraan bobot, dan koordinat WPP-NRI sesuai regulasi KKP.',
+                'Pencatatan digital hasil tangkapan harian nahkoda: jenis ikan, perkiraan bobot, dan koordinat WPP-NRI sesuai regulasi Kelautan.ID.',
                 'preset',
                 'fa-solid fa-book-bookmark',
                 'approved',

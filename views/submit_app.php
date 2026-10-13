@@ -15,7 +15,7 @@ require __DIR__ . '/partials/header.php';
                         </span>
                         <span class="text-outline text-xs">•</span>
                         <span class="text-secondary text-xs font-semibold flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Sandboxing Terenkripsi KKP
+                            <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Sandboxing Terenkripsi Kelautan.ID
                         </span>
                     </div>
 
@@ -24,7 +24,7 @@ require __DIR__ . '/partials/header.php';
                     </h1>
 
                     <p class="text-sm text-on-surface-variant leading-relaxed">
-                        Daftarkan aplikasi Google Apps Script (GAS) atau TypeScript SPA internal Anda untuk ditinjau oleh Tim IT Kementerian Kelautan dan Perikanan sebelum diterbitkan ke katalog resmi.
+                        Daftarkan aplikasi Google Apps Script (GAS) atau web app internal Anda untuk ditinjau oleh Tim IT Kelautan.ID sebelum diterbitkan ke katalog resmi.
                     </p>
                 </div>
 

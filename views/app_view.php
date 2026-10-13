@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title><?= e($app['title']) ?> &bull; Portal Hub Kelautan KKP</title>
+    <title><?= e($app['title']) ?> &bull; Apps Hub Kelautan.ID</title>
     
     <!-- Google Fonts & Material Symbols -->
     <link href="https://fonts.googleapis.com" rel="preconnect"/>

@@ -30,9 +30,9 @@ $popularApps = array_slice($apps, 0, 3);
                     <div class="flex items-center gap-3 flex-wrap">
                         <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-secondary-container/20 text-secondary-fixed text-xs font-bold uppercase tracking-wider">
                             <span class="w-2 h-2 rounded-full bg-secondary-fixed animate-pulse"></span>
-                            Node Operasional JKT-PST • KKP Terhubung
+                            Node Operasional JKT-PST • Kelautan.ID Terhubung
                         </span>
-                        <span class="text-xs text-on-primary-container font-mono">Pusdatin KKP RI Live</span>
+                        <span class="text-xs text-on-primary-container font-mono">Pusat Data Kelautan.ID Live</span>
                     </div>
 
                     <h1 class="text-2xl sm:text-3xl font-bold text-on-primary tracking-tight">
@@ -40,7 +40,7 @@ $popularApps = array_slice($apps, 0, 3);
                     </h1>
 
                     <p class="text-sm text-on-primary-container leading-relaxed">
-                        Portal Hub Operasional Kelautan — Gerbang satu pintu eksekusi modul Google Apps Script terverifikasi, aplikasi analitik TypeScript SPA, dan instrumen kepatuhan perikanan nasional.
+                        Apps Hub Kelautan.ID — Gerbang terpusat eksekusi modul Google Apps Script terverifikasi, aplikasi analitik web, dan instrumen operasional maritim terpadu.
                     </p>
                 </div>
 
@@ -324,7 +324,7 @@ $popularApps = array_slice($apps, 0, 3);
                         </div>
                         <h3 class="font-bold text-sm text-on-surface">Punya Script GAS Sendiri?</h3>
                         <p class="text-xs text-on-surface-variant leading-relaxed">
-                            Daftarkan skrip automasi internal Anda untuk diintegrasikan ke wrapper iFrame standar KKP dan dapatkan kuota eksekusi Google Workspace Enterprise.
+                            Daftarkan skrip automasi internal Anda untuk diintegrasikan ke wrapper iFrame standar Kelautan.ID.
                         </p>
                         <div class="pt-1 flex flex-col gap-1.5">
                             <a class="w-full text-center px-3 py-2 rounded-lg bg-primary text-on-primary font-bold text-xs hover:bg-primary-container transition-colors shadow-xs" 
@@ -332,7 +332,7 @@ $popularApps = array_slice($apps, 0, 3);
                                 Ajukan Script Baru →
                             </a>
                             <span class="text-[11px] text-center text-on-surface-variant">
-                                Standar Keamanan Sandbox (v2.4 KKP)
+                                Standar Keamanan Sandbox (v2.4 Kelautan.ID)
                             </span>
                         </div>
                     </div>
@@ -344,11 +344,11 @@ $popularApps = array_slice($apps, 0, 3);
                             <h4 class="font-bold text-xs">Dukungan Sistem & Masalah iFrame</h4>
                         </div>
                         <p class="text-[11px] text-on-surface-variant leading-relaxed">
-                            Mengalami token expired atau galat CORS saat menjalankan modul? Hubungi petugas siaga Pusdatin KKP.
+                            Mengalami token expired atau galat CORS saat menjalankan modul? Hubungi petugas siaga Pusat Data Kelautan.ID.
                         </p>
                         <div class="flex items-center justify-between pt-1 border-t border-surface-container font-mono text-[11px] text-on-surface-variant">
                             <span>NOC Ext: <strong class="text-on-surface">4421</strong></span>
-                            <span class="text-secondary font-sans font-semibold">@kkp_itops</span>
+                            <span class="text-secondary font-sans font-semibold">@kelautan_id_ops</span>
                         </div>
                     </div>
                 </aside>

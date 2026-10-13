@@ -9,7 +9,7 @@ $stats = Application::getStats();
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title><?= e($pageTitle ?? 'Portal Hub Kelautan - Kementerian Kelautan dan Perikanan RI') ?></title>
+    <title><?= e($pageTitle ?? 'Apps Hub Kelautan.ID') ?></title>
     
     <!-- Google Fonts & Material Symbols (Stitch Standard) -->
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -123,10 +123,10 @@ $stats = Application::getStats();
                 </div>
                 <div class="flex flex-col">
                     <span class="font-bold text-[17px] tracking-tight text-primary leading-tight group-hover:text-secondary transition-colors">
-                        Portal Hub Kelautan
+                        Apps Hub Kelautan.ID
                     </span>
                     <span class="text-[10px] font-bold text-secondary tracking-wider uppercase">
-                        KKP RI • Internal Systems
+                        Application Hub by Kelautan.ID
                     </span>
                 </div>
             </a>
@@ -182,7 +182,7 @@ $stats = Application::getStats();
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
                 </span>
-                <span class="text-[11px] font-semibold text-on-secondary-fixed-variant">Sesi Aktif KKP</span>
+                <span class="text-[11px] font-semibold text-on-secondary-fixed-variant">Sesi Aktif Kelautan.ID</span>
             </div>
 
             <div class="h-6 w-px bg-surface-container-high hidden sm:block"></div>
@@ -192,7 +192,7 @@ $stats = Application::getStats();
                 <button type="button" class="flex items-center gap-2.5 p-1 rounded-lg hover:bg-surface-container transition-colors" id="stitchUserBtn">
                     <div class="hidden md:flex flex-col text-right">
                         <span class="text-xs font-bold text-on-surface leading-tight"><?= e($currentUser['name']) ?></span>
-                        <span class="text-[10px] font-semibold text-secondary tracking-tight uppercase"><?= e($currentUser['role'] === 'admin' ? 'IT Ops & Admin' : 'Pengguna Dinas') ?></span>
+                        <span class="text-[10px] font-semibold text-secondary tracking-tight uppercase"><?= e($currentUser['role'] === 'admin' ? 'IT Ops & Admin' : 'Pengguna Kelautan.ID') ?></span>
                     </div>
                     <div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-xs shadow-xs">
                         <?= strtoupper(substr($currentUser['name'] ?? 'U', 0, 1)) ?>
