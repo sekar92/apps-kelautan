@@ -19,7 +19,7 @@
     RewriteRule ^ index.php [L,QSA]
 </IfModule>
 
-# Deny direct access to database files
-<FilesMatch "\.(sqlite|sql|log)$">
+# Deny direct access to sensitive configuration and database files
+<FilesMatch "(\.env|\.sqlite|\.sql|\.log)$">
     Require all denied
 </FilesMatch>

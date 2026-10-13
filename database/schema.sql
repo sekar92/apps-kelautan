@@ -85,9 +85,43 @@ CREATE TABLE IF NOT EXISTS `activity_logs` (
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Seed Data (Admin password: admin123, User password: user123)
--- Hash generated via password_hash('admin123', PASSWORD_BCRYPT)
+-- Seed Data (Admin: admin@kelautan.id / admin123, User: user@kelautan.id / user123)
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `department`) VALUES
-(1, 'Administrator Kelautan', 'admin@kelautan.id', '$2y$10$Q7i.z9H/4fB1dD7T.6jLw.p5t2Xk1CjX4G7YFqI0D4yV8a3mP0q5u', 'admin', 'Pusat Data & Informasi'),
-(2, 'Budi Nelayan', 'user@kelautan.id', '$2y$10$Q7i.z9H/4fB1dD7T.6jLw.p5t2Xk1CjX4G7YFqI0D4yV8a3mP0q5u', 'user', 'Pelabuhan Perikanan Samudera')
+(1, 'Administrator Kelautan', 'admin@kelautan.id', '$2y$12$lFiOFZMHK1Mj9otqWYcFZOvAqaKuf7Umxvqx90PtK9Omngs3OJ.hq', 'admin', 'Pusat Data dan Informasi Kelautan.ID'),
+(2, 'Budi Samudra (User)', 'user@kelautan.id', '$2y$12$G8OyaAWNpqdoiU2PCJ10ruDvGg/C1ST9KPrWx1V0SkowJvtENqDBS', 'user', 'Pelabuhan Perikanan Samudera'),
+(3, 'Siti Bahari (Analis)', 'siti@kelautan.id', '$2y$12$G8OyaAWNpqdoiU2PCJ10ruDvGg/C1ST9KPrWx1V0SkowJvtENqDBS', 'user', 'Direktorat Pengawasan Maritim')
 ON DUPLICATE KEY UPDATE `email`=`email`;
+
+-- 7. Categories Seed
+INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `icon`, `color`) VALUES
+(1, 'Google Apps Script (GAS)', 'appscript', 'Aplikasi automasi spreadsheet, formulir, dan ekosistem Google Workspace', 'fa-brands fa-google', '#3b82f6'),
+(2, 'TypeScript & SPA', 'typescript', 'Aplikasi Web Single Page Application dengan antarmuka dinamis dan responsif', 'fa-solid fa-code', '#06b6d4'),
+(3, 'Logistik & POS Nelayan', 'pos', 'Sistem kasir lelang, inventori pasokan bahan bakar, dan logistik pelabuhan', 'fa-solid fa-cash-register', '#10b981'),
+(4, 'Operasional & ABK', 'operasional', 'Aplikasi pencatatan operasional kapal, presensi ABK, dan izin berlayar', 'fa-solid fa-ship', '#8b5cf6'),
+(5, 'Keuangan & PNBP', 'keuangan', 'Kalkulator penerimaan negara bukan pajak dan laporan keuangan lelang', 'fa-solid fa-coins', '#f59e0b'),
+(6, 'Laporan & Oseanografi', 'laporan', 'Dashboard pemantauan cuaca laut, gelombang, dan data citra satelit', 'fa-solid fa-chart-line', '#ec4899')
+ON DUPLICATE KEY UPDATE `slug`=`slug`;
+
+-- 8. Applications Seed
+INSERT INTO `applications` (`id`, `title`, `slug`, `category_id`, `user_id`, `app_url`, `description`, `icon_type`, `icon_value`, `status`, `review_notes`, `reviewed_by`, `reviewed_at`, `hit_count`, `is_featured`) VALUES
+(1, 'POS Kasir Lelang TPI', 'pos-tpi', 3, 1, 'https://example.com/demo-app-pos', 'Aplikasi kasir penjualan hasil tangkapan ikan di Tempat Pelelangan Ikan (TPI) terintegrasi dengan timbangan digital dan struk otomatis.', 'preset', 'fa-solid fa-cash-register', 'approved', 'Aplikasi telah memenuhi standar keamanan dan siap digunakan.', 1, NOW() - INTERVAL 10 DAY, 542, 1),
+(2, 'E-Logbook Penangkapan Ikan', 'e-logbook', 4, 2, 'https://example.com/demo-app-logbook', 'Pencatatan digital hasil tangkapan harian nahkoda: jenis ikan, perkiraan bobot, dan koordinat WPP-NRI sesuai regulasi Kelautan.ID.', 'preset', 'fa-solid fa-book-bookmark', 'approved', 'Sesuai dengan format pelaporan terpadu.', 1, NOW() - INTERVAL 5 DAY, 839, 1),
+(3, 'Dashboard Oseanografi BMKG (GAS)', 'cuaca-maritim', 1, 2, 'https://example.com/demo-app-cuaca', 'Google Apps Script yang mengagregasi data radar tinggi gelombang, kecepatan angin maritim, dan pasang surut air laut untuk keselamatan pelayaran.', 'preset', 'fa-solid fa-water', 'approved', 'Script aman, isolasi iframe berjalan dengan baik.', 1, NOW() - INTERVAL 2 DAY, 1240, 1),
+(4, 'Sistem Presensi Awak Kapal (ABK)', 'presensi-abk', 4, 1, 'https://example.com/demo-app-presensi', 'Sistem monitoring kehadiran dan rotasi kru kapal perikanan dengan validasi lokasi dermaga pelabuhan singgah.', 'preset', 'fa-solid fa-id-card-clip', 'approved', 'Disetujui untuk pilot project pelabuhan perikanan.', 1, NOW() - INTERVAL 1 DAY, 312, 0),
+(5, 'Kalkulator Simulasi PNBP Pascaproduksi', 'kalkulator-pnbp', 5, 2, 'https://example.com/demo-app-pnbp', 'Simulasi mandiri untuk pelaku usaha perikanan menghitung tarif PNBP berdasarkan tonase kapal dan harga patokan ikan terbaru.', 'preset', 'fa-solid fa-calculator', 'approved', 'Formula perhitungan telah diverifikasi oleh tim keuangan.', 1, NOW() - INTERVAL 4 DAY, 428, 0),
+(6, 'Formulir Izin Berlayar Cepat (SPB)', 'spb-cepat', 2, 3, 'https://example.com/demo-app-spb', 'Aplikasi SPA TypeScript untuk pengajuan Surat Persetujuan Berlayar secara digital dengan verifikasi berkas daring.', 'preset', 'fa-solid fa-compass', 'pending', NULL, NULL, NULL, 14, 0),
+(7, 'Inventarisasi Alat Tangkap Ramah Lingkungan', 'inventaris-alat-tangkap', 6, 2, 'https://example.com/demo-app-alat-tangkap', 'Katalog dan inventaris alat penangkapan ikan (API) yang tersertifikasi ramah lingkungan di wilayah pesisir.', 'preset', 'fa-solid fa-network-wired', 'revision', 'Mohon perbarui URL formulir dan sertakan petunjuk hak akses.', 1, NOW() - INTERVAL 3 HOUR, 6, 0),
+(8, 'Sistem Tracking Suhu Cold Storage (Draft)', 'tracking-cold-storage', 2, 2, 'https://example.com/demo-app-cold-storage', 'Monitoring sensor suhu gudang beku ikan secara real-time melalui websocket IoT.', 'preset', 'fa-solid fa-temperature-arrow-down', 'draft', NULL, NULL, NULL, 0, 0)
+ON DUPLICATE KEY UPDATE `slug`=`slug`;
+
+-- 9. Sample Bookmarks
+INSERT INTO `bookmarks` (`user_id`, `application_id`) VALUES
+(2, 1), (2, 3), (1, 2)
+ON DUPLICATE KEY UPDATE `application_id`=`application_id`;
+
+-- 10. Sample Activity Logs
+INSERT INTO `activity_logs` (`user_id`, `action`, `details`, `ip_address`) VALUES 
+(1, 'SYSTEM_INIT', 'Sistem Apps Hub Kelautan.ID diinisialisasi.', '127.0.0.1'),
+(1, 'APP_APPROVE', 'Menyetujui aplikasi POS Kasir Lelang TPI', '127.0.0.1'),
+(2, 'APP_SUBMIT', 'Mengajukan aplikasi baru: Dashboard Oseanografi BMKG', '127.0.0.1'),
+(1, 'APP_REVISION', 'Meminta revisi aplikasi: Inventarisasi Alat Tangkap Ramah Lingkungan', '127.0.0.1');

@@ -13,6 +13,24 @@ class Database {
             return self::$instance;
         }
 
+        // Load .env file if it exists in project root
+        $envFile = dirname(__DIR__) . '/.env';
+        if (file_exists($envFile)) {
+            $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            foreach ($lines as $line) {
+                $line = trim($line);
+                if (empty($line) || strpos($line, '#') === 0) continue;
+                if (strpos($line, '=') !== false) {
+                    list($key, $val) = explode('=', $line, 2);
+                    $key = trim($key);
+                    $val = trim($val, " \t\n\r\0\x0B\"'");
+                    putenv("{$key}={$val}");
+                    $_ENV[$key] = $val;
+                    $_SERVER[$key] = $val;
+                }
+            }
+        }
+
         // Determine driver based on environment or configuration
         $envDriver = getenv('DB_CONNECTION') ?: 'sqlite';
         $dbHost = getenv('DB_HOST') ?: '127.0.0.1';
