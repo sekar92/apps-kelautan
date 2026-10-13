@@ -60,6 +60,11 @@ try {
     if ($scriptDir !== '/' && $scriptDir !== '.' && strpos($path, $scriptDir) === 0) {
         $path = substr($path, strlen($scriptDir));
     }
+
+    // Strip leading /index.php if directly accessed
+    if (strpos($path, '/index.php') === 0) {
+        $path = substr($path, strlen('/index.php'));
+    }
     $path = '/' . trim($path, '/');
 
     $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
