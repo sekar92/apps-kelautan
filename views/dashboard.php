@@ -36,7 +36,7 @@ $popularApps = array_slice($apps, 0, 3);
                     </div>
 
                     <h1 class="text-2xl sm:text-3xl font-bold text-on-primary tracking-tight">
-                        Selamat datang, <?= e($currentUser['name']) ?>
+                        <?= !empty($currentUser['name']) ? 'Selamat datang, ' . e($currentUser['name']) : 'Katalog Aplikasi Kelautan.ID' ?>
                     </h1>
 
                     <p class="text-sm text-on-primary-container leading-relaxed">

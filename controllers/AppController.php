@@ -6,8 +6,8 @@ require_once __DIR__ . '/../models/Category.php';
 
 class AppController {
     public function index(): void {
-        Auth::requireLogin();
         $currentUser = Auth::user();
+        $userId = $currentUser ? $currentUser['id'] : null;
 
         // Get filter params
         $catFilter = isset($_GET['cat']) ? (int)$_GET['cat'] : null;
@@ -17,7 +17,10 @@ class AppController {
         $categories = Category::getAll();
 
         if ($viewType === 'favorites') {
-            $apps = Application::getUserBookmarks($currentUser['id']);
+            if (!$currentUser) {
+                redirect('/login', null, 'Silakan masuk terlebih dahulu untuk melihat daftar aplikasi favorit Anda.');
+            }
+            $apps = Application::getUserBookmarks($userId);
             // Apply in-memory search if search query exists
             if ($search) {
                 $apps = array_filter($apps, function($a) use ($search) {
@@ -25,11 +28,11 @@ class AppController {
                 });
             }
         } else {
-            $apps = Application::getApproved($catFilter, $search, $currentUser['id']);
+            $apps = Application::getApproved($catFilter, $search, $userId);
         }
 
         // Recently used apps widget (FR 2.5)
-        $recentlyUsed = Application::getRecentlyUsed($currentUser['id'], 4);
+        $recentlyUsed = $userId ? Application::getRecentlyUsed($userId, 4) : [];
 
         $pageTitle = "Katalog Aplikasi - Apps Hub Kelautan.ID";
         require __DIR__ . '/../views/dashboard.php';
@@ -39,7 +42,6 @@ class AppController {
      * FR 5.1 & 5.2: Core Engine iFrame Wrapper
      */
     public function viewApp(string $categorySlug, string $appSlug): void {
-        Auth::requireLogin();
         $currentUser = Auth::user();
 
         $app = Application::findBySlugAndCategory($categorySlug, $appSlug);
@@ -50,18 +52,38 @@ class AppController {
             exit;
         }
 
-        // Only approved apps can be opened by regular users (unless admin or author previewing)
-        if ($app['status'] !== 'approved' && !Auth::isAdmin() && $app['user_id'] !== $currentUser['id']) {
-            http_response_code(403);
-            require __DIR__ . '/../views/403.php';
-            exit;
+        // Only approved apps can be opened publicly (unless logged in as admin or author previewing)
+        if ($app['status'] !== 'approved') {
+            Auth::requireLogin();
+            if (!Auth::isAdmin() && $app['user_id'] !== $currentUser['id']) {
+                http_response_code(403);
+                require __DIR__ . '/../views/403.php';
+                exit;
+            }
         }
 
         // FR 6.1: Increment hit count and record analytics hit
-        Application::incrementHit($app['id'], $currentUser['id']);
+        Application::incrementHit($app['id'], $currentUser['id'] ?? null);
 
         // FR 5.3: Generate secure token for the micro-app
-        $appToken = Auth::generateAppToken($currentUser, $app['id']);
+        if ($currentUser) {
+            $appToken = Auth::generateAppToken($currentUser, $app['id']);
+            $userIdParam = $currentUser['id'];
+            $userNameParam = $currentUser['name'];
+            $userEmailParam = $currentUser['email'];
+        } else {
+            $guestUser = [
+                'id' => 0,
+                'name' => 'Pengguna Publik',
+                'email' => 'publik@kelautan.id',
+                'role' => 'public',
+                'department' => 'Publik'
+            ];
+            $appToken = Auth::generateAppToken($guestUser, $app['id']);
+            $userIdParam = 0;
+            $userNameParam = 'Pengguna Publik';
+            $userEmailParam = 'publik@kelautan.id';
+        }
 
         // Build target URL with auth parameters
         $targetUrl = $app['app_url'];
@@ -75,9 +97,9 @@ class AppController {
         $separator = (strpos($targetUrl, '?') === false) ? '?' : '&';
         $fullFrameUrl = $targetUrl . $separator . http_build_query([
             'auth_token' => $appToken,
-            'user_id' => $currentUser['id'],
-            'user_name' => $currentUser['name'],
-            'user_email' => $currentUser['email'],
+            'user_id' => $userIdParam,
+            'user_name' => $userNameParam,
+            'user_email' => $userEmailParam,
             'portal_source' => 'apps.kelautan.id'
         ]);
 
@@ -91,7 +113,11 @@ class AppController {
     public function toggleBookmark(): void {
         header('Content-Type: application/json');
         if (!Auth::check()) {
-            echo json_encode(['success' => false, 'error' => 'Unauthorized']);
+            echo json_encode([
+                'success' => false, 
+                'require_login' => true, 
+                'message' => 'Silakan masuk untuk menandai aplikasi favorit.'
+            ]);
             exit;
         }
 

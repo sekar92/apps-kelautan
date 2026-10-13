@@ -111,7 +111,6 @@ $stats = Application::getStats();
 </head>
 <body class="bg-surface font-sans text-on-surface antialiased min-h-screen flex flex-col justify-between">
 
-<?php if (Auth::check()): ?>
 <!-- Fixed Top Institutional Navigation Bar (Stitch Shell Standard) -->
 <header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(10,37,64,0.06)] border-b border-surface-container">
     <div class="h-16 w-full px-4 sm:px-8 flex items-center justify-between gap-4">
@@ -176,6 +175,7 @@ $stats = Application::getStats();
 
         <!-- Search Bar, Session Telemetry & User Menu -->
         <div class="flex items-center gap-3">
+            <?php if (Auth::check()): ?>
             <!-- Active Session Telemetry Chip (FR 1.2) -->
             <div class="hidden sm:flex items-center gap-1.5 px-3 py-1 bg-surface-container-low rounded-full">
                 <span class="relative flex h-2 w-2">
@@ -227,13 +227,27 @@ $stats = Application::getStats();
                     </a>
                 </div>
             </div>
+            <?php else: ?>
+            <!-- Guest / Public State Header Items -->
+            <div class="hidden sm:flex items-center gap-1.5 px-3 py-1 bg-surface-container-low rounded-full">
+                <span class="relative flex h-2 w-2">
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+                </span>
+                <span class="text-[11px] font-semibold text-on-secondary-fixed-variant">Akses Katalog Publik</span>
+            </div>
+
+            <div class="h-6 w-px bg-surface-container-high hidden sm:block"></div>
+
+            <a href="<?= url('/login') ?>" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-primary-container text-on-primary hover:bg-tertiary-container text-xs font-bold transition-all shadow-xs">
+                <span class="material-symbols-outlined text-[16px]">login</span>
+                <span>Masuk Akun</span>
+            </a>
+            <?php endif; ?>
         </div>
     </div>
 </header>
-<?php endif; ?>
 
 <!-- Flash Message Notifications -->
-<?php if (Auth::check()): ?>
 <div class="max-w-[1440px] w-full mx-auto px-4 sm:px-8 mt-20">
     <?php if ($successMsg = getFlash('success')): ?>
         <div class="flex items-center gap-3 p-3.5 rounded-xl bg-secondary-container/30 border border-secondary/30 text-on-secondary-container mb-4 text-sm font-medium shadow-xs">
@@ -256,4 +270,3 @@ $stats = Application::getStats();
         </div>
     <?php endif; ?>
 </div>
-<?php endif; ?>

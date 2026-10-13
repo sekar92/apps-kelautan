@@ -1,5 +1,11 @@
 <?php
 // View: Core Engine iFrame Execution Wrapper (Refactored to match Stitch iframe_wrapper.html)
+$currentUser = $currentUser ?? Auth::user() ?? [
+    'id' => 0,
+    'name' => 'Pengguna Publik',
+    'email' => 'publik@kelautan.id',
+    'department' => 'Akses Publik'
+];
 ?>
 <!DOCTYPE html>
 <html lang="id">

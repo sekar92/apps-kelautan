@@ -1,7 +1,6 @@
 <?php
 // Partial: Footer (Refactored to match Stitch Institutional Standard)
 ?>
-<?php if (Auth::check()): ?>
 <footer class="w-full bg-surface-container-lowest border-t border-surface-container mt-16 py-8">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3">
@@ -29,7 +28,6 @@
         </div>
     </div>
 </footer>
-<?php endif; ?>
 
 <!-- Toast Notifications Container -->
 <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2"></div>
@@ -72,6 +70,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 const data = await response.json();
+
+                if (data.require_login) {
+                    showStitchToast(data.message || 'Silakan masuk untuk menyimpan aplikasi favorit.', 'login');
+                    setTimeout(() => {
+                        window.location.href = window.PORTAL_BASE_URL + '/login';
+                    }, 1200);
+                    return;
+                }
 
                 if (data.success) {
                     if (data.is_bookmarked) {

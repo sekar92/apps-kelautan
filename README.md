@@ -124,14 +124,15 @@ Buka peramban di: **`http://localhost:8000`**
 
 ---
 
-### 2. Akun Pengguna Demo
+### 2. Hak Akses & Akun Demo
+
+- **Akses Publik (Tanpa Login)**: Seluruh katalog aplikasi publik dan semua aplikasi mikro yang berstatus **Approved** dapat langsung diakses dan dijalankan oleh siapa saja tanpa perlu masuk/login.
+- **Login Diperlukan Untuk**: Pengajuan aplikasi baru (`/submissions`), penandaan aplikasi favorit, dan fitur tata kelola sistem.
 
 | Peran (Role) | Alamat Email | Kata Sandi | Akses |
 | :--- | :--- | :--- | :--- |
-| **Administrator** | `admin@kelautan.id` | `admin123` | Akses penuh (Katalog, Review Board, Pengguna, Kategori, Log) |
-| **User Biasa** | `user@kelautan.id` | `user123` | Akses pengguna (Katalog, Buka Aplikasi, Favorit, Pengajuan Saya) |
-
-*(Di halaman login tersedia tombol pintas otomatis **Admin** dan **Pengguna Biasa** untuk login sekali klik).*
+| **Administrator** | `admin@kelautan.id` | `admin123` | Akses penuh (Katalog, Review Board, Pengguna, Kategori, Log Audit) |
+| **User Internal** | `user@kelautan.id` | `user123` | Akses terdaftar (Katalog, Favorit Pribadi, Pengajuan Aplikasi Saya) |
 
 ---
 
