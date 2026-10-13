@@ -87,10 +87,10 @@ CREATE TABLE IF NOT EXISTS `activity_logs` (
 
 -- Seed Data (Admin: admin@kelautan.id / admin123, User: user@kelautan.id / user123)
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `department`) VALUES
-(1, 'Administrator Kelautan', 'admin@kelautan.id', '$2y$12$lFiOFZMHK1Mj9otqWYcFZOvAqaKuf7Umxvqx90PtK9Omngs3OJ.hq', 'admin', 'Pusat Data dan Informasi Kelautan.ID'),
-(2, 'Budi Samudra (User)', 'user@kelautan.id', '$2y$12$G8OyaAWNpqdoiU2PCJ10ruDvGg/C1ST9KPrWx1V0SkowJvtENqDBS', 'user', 'Pelabuhan Perikanan Samudera'),
-(3, 'Siti Bahari (Analis)', 'siti@kelautan.id', '$2y$12$G8OyaAWNpqdoiU2PCJ10ruDvGg/C1ST9KPrWx1V0SkowJvtENqDBS', 'user', 'Direktorat Pengawasan Maritim')
-ON DUPLICATE KEY UPDATE `email`=`email`;
+(1, 'Administrator Kelautan', 'admin@kelautan.id', '$2y$12$oCzisiXlFDNa5stQGlM0u.HP72MG0cA4YiQJmtleVxUvyKJ/pd7/u', 'admin', 'Pusat Data dan Informasi Kelautan.ID'),
+(2, 'Budi Samudra (User)', 'user@kelautan.id', '$2y$12$T.Zbp9HQzdeynGVwI/ome..mhXgZdv86l5G/MdPfhIrtFOiEbB5RG', 'user', 'Pelabuhan Perikanan Samudera'),
+(3, 'Siti Bahari (Analis)', 'siti@kelautan.id', '$2y$12$T.Zbp9HQzdeynGVwI/ome..mhXgZdv86l5G/MdPfhIrtFOiEbB5RG', 'user', 'Direktorat Pengawasan Maritim')
+ON DUPLICATE KEY UPDATE `password`=VALUES(`password`), `role`=VALUES(`role`), `name`=VALUES(`name`);
 
 -- 7. Categories Seed
 INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `icon`, `color`) VALUES
