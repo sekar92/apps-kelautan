@@ -7,22 +7,32 @@
 // Early .env loader
 $envFile = __DIR__ . '/.env';
 if (file_exists($envFile)) {
-    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    foreach ($lines as $line) {
-        $line = trim($line);
-        if (empty($line) || strpos($line, '#') === 0) continue;
-        if (strpos($line, '=') !== false) {
-            list($key, $val) = explode('=', $line, 2);
-            $key = trim($key);
-            $val = trim($val, " \t\n\r\0\x0B\"'");
+    $parsed = @parse_ini_file($envFile);
+    if (is_array($parsed)) {
+        foreach ($parsed as $key => $val) {
             putenv("{$key}={$val}");
             $_ENV[$key] = $val;
             $_SERVER[$key] = $val;
         }
+    } else {
+        $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if (empty($line) || strpos($line, '#') === 0) continue;
+            if (strpos($line, '=') !== false) {
+                list($key, $val) = explode('=', $line, 2);
+                $key = trim($key);
+                $val = trim($val, " \t\n\r\0\x0B\"'");
+                putenv("{$key}={$val}");
+                $_ENV[$key] = $val;
+                $_SERVER[$key] = $val;
+            }
+        }
     }
 }
 
-if (getenv('APP_DEBUG') === 'true' || getenv('APP_DEBUG') === '1') {
+$isDebug = ($_ENV['APP_DEBUG'] ?? getenv('APP_DEBUG')) === 'true' || ($_ENV['APP_DEBUG'] ?? getenv('APP_DEBUG')) === '1';
+if ($isDebug) {
     ini_set('display_errors', '1');
     ini_set('display_startup_errors', '1');
     error_reporting(E_ALL);
