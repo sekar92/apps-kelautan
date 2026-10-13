@@ -6,10 +6,6 @@
     RewriteEngine On
     RewriteBase /
 
-    # Prevent clickjacking (NFR 2)
-    Header always set X-Frame-Options "SAMEORIGIN"
-    Header always set X-Content-Type-Options "nosniff"
-
     # Stop rewriting if file or directory physically exists
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
@@ -17,6 +13,12 @@
 
     # Route all requests to Front Controller
     RewriteRule ^ index.php [L,QSA]
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Prevent clickjacking (NFR 2)
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
 </IfModule>
 
 # Deny direct access to sensitive configuration and database files

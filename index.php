@@ -4,30 +4,55 @@
  * Portal Hub Aplikasi (Apps Portal Kelautan)
  */
 
-require_once __DIR__ . '/config/database.php';
-require_once __DIR__ . '/config/auth.php';
-require_once __DIR__ . '/config/helpers.php';
-require_once __DIR__ . '/controllers/AuthController.php';
-require_once __DIR__ . '/controllers/AppController.php';
-require_once __DIR__ . '/controllers/SubmissionController.php';
-require_once __DIR__ . '/controllers/AdminController.php';
-
-// Initialize session and security headers
-Auth::init();
-
-// Parse request URI
-$requestUri = $_SERVER['REQUEST_URI'] ?? '/';
-$parsedUrl = parse_url($requestUri);
-$path = $parsedUrl['path'] ?? '/';
-
-// Strip application base directory if running in subdirectory
-$scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
-if ($scriptDir !== '/' && $scriptDir !== '.' && strpos($path, $scriptDir) === 0) {
-    $path = substr($path, strlen($scriptDir));
+// Early .env loader
+$envFile = __DIR__ . '/.env';
+if (file_exists($envFile)) {
+    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if (empty($line) || strpos($line, '#') === 0) continue;
+        if (strpos($line, '=') !== false) {
+            list($key, $val) = explode('=', $line, 2);
+            $key = trim($key);
+            $val = trim($val, " \t\n\r\0\x0B\"'");
+            putenv("{$key}={$val}");
+            $_ENV[$key] = $val;
+            $_SERVER[$key] = $val;
+        }
+    }
 }
-$path = '/' . trim($path, '/');
 
-$method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+if (getenv('APP_DEBUG') === 'true' || getenv('APP_DEBUG') === '1') {
+    ini_set('display_errors', '1');
+    ini_set('display_startup_errors', '1');
+    error_reporting(E_ALL);
+}
+
+try {
+    require_once __DIR__ . '/config/database.php';
+    require_once __DIR__ . '/config/auth.php';
+    require_once __DIR__ . '/config/helpers.php';
+    require_once __DIR__ . '/controllers/AuthController.php';
+    require_once __DIR__ . '/controllers/AppController.php';
+    require_once __DIR__ . '/controllers/SubmissionController.php';
+    require_once __DIR__ . '/controllers/AdminController.php';
+
+    // Initialize session and security headers
+    Auth::init();
+
+    // Parse request URI
+    $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
+    $parsedUrl = parse_url($requestUri);
+    $path = $parsedUrl['path'] ?? '/';
+
+    // Strip application base directory if running in subdirectory
+    $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
+    if ($scriptDir !== '/' && $scriptDir !== '.' && strpos($path, $scriptDir) === 0) {
+        $path = substr($path, strlen($scriptDir));
+    }
+    $path = '/' . trim($path, '/');
+
+    $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
 // -------------------------------------------------------------
 // Core Application Routing
@@ -186,3 +211,11 @@ if (preg_match('#^/([a-zA-Z0-9_\-]+)/([a-zA-Z0-9_\-]+)$#', $path, $matches)) {
 // 404 Fallback
 http_response_code(404);
 require __DIR__ . '/views/404.php';
+
+} catch (Throwable $e) {
+    error_log("Portal Server Error: " . $e->getMessage() . " in " . $e->getFile() . ":" . $e->getLine());
+    http_response_code(500);
+    $errorMessage = $e->getMessage();
+    require __DIR__ . '/views/500.php';
+    exit;
+}

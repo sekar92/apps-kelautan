@@ -51,7 +51,10 @@ class Database {
                 self::$driver = 'mysql';
                 return self::$instance;
             } catch (PDOException $e) {
-                // If MySQL connection fails, fall back gracefully to SQLite
+                // If user explicitly configured mysql in .env, throw descriptive exception
+                if (getenv('DB_CONNECTION') === 'mysql') {
+                    throw new Exception("Koneksi MariaDB/MySQL Gagal: " . $e->getMessage() . ". Periksa kredensial DB di file .env dan pastikan service mariadb sedang aktif.");
+                }
                 error_log("MySQL connection failed: " . $e->getMessage() . ". Falling back to SQLite.");
             }
         }
