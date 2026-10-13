@@ -4,7 +4,6 @@
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /
 
     # Stop rewriting if file or directory physically exists
     RewriteCond %{REQUEST_FILENAME} -f [OR]
@@ -21,7 +20,9 @@
     Header always set X-Content-Type-Options "nosniff"
 </IfModule>
 
-# Deny direct access to sensitive configuration and database files
-<FilesMatch "(\.env|\.sqlite|\.sql|\.log)$">
-    Require all denied
-</FilesMatch>
+# Protect sensitive files safely
+<IfModule mod_authz_core.c>
+    <FilesMatch "(\.env|\.sqlite|\.sql|\.log)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
