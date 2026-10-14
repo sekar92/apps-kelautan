@@ -4,6 +4,8 @@ Platform terpadu berbasis web berarsitektur *Single Page Application (SPA) wrapp
 
 Aplikasi ini dibangun sesuai spesifikasi **[Product Requirements Document (PRD)](apps-kelautan_PRD.md)** dan **[Pre-Coding Architecture Plan](pre_coding_checklist_rencana_arsitektur.md)**.
 
+📖 **Untuk panduan operasional detail setiap fitur, silakan baca: [Buku Panduan & Walkthrough Fitur Lengkap](PANDUAN_FITUR_WALKTHROUGH.md)**
+
 ---
 
 ## 🌊 Fitur Utama Berdasarkan PRD
