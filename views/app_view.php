@@ -135,6 +135,13 @@ $currentUser = $currentUser ?? Auth::user() ?? [
                     <span class="material-symbols-outlined text-[18px]">open_in_new</span>
                 </a>
 
+                <a class="px-3 py-1.5 rounded-lg bg-secondary text-on-secondary hover:bg-secondary/90 transition-all flex items-center gap-1.5 font-bold text-xs shadow-xs" 
+                   href="<?= url('/' . e($app['category_slug']) . '/' . e($app['slug']) . '?mode=full') ?>" 
+                   title="Buka Versi Layar Penuh Murni (Frameless 100%)">
+                    <span class="material-symbols-outlined text-[16px]">aspect_ratio</span>
+                    <span class="hidden sm:inline">Mode Full Frameless</span>
+                </a>
+
                 <button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary hover:bg-tertiary-container transition-all flex items-center gap-1.5 font-bold text-xs shadow-xs" 
                         id="btn-fullscreen" 
                         onclick="toggleWrapperFullscreen()" 

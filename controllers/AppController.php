@@ -104,6 +104,14 @@ class AppController {
         ]);
 
         $pageTitle = $app['title'] . " - Apps Hub Kelautan.ID";
+
+        // Cek mode tampilan: Versi Standar (Wrapper) atau Versi Full Screen Murni (Frameless)
+        $mode = $_GET['mode'] ?? $_GET['view'] ?? $_GET['layout'] ?? 'standard';
+        if ($mode === 'full') {
+            require __DIR__ . '/../views/app_view_full.php';
+            return;
+        }
+
         require __DIR__ . '/../views/app_view.php';
     }
 

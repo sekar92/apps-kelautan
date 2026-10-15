@@ -57,16 +57,47 @@ Ketika sebuah aplikasi dipilih dari katalog, sistem akan memuatnya di dalam **Co
 +-----------------------------------------------------------------------------------+
 ```
 
-### Komponen Pengendali Wrapper:
-1. **Tombol Kembali ke Katalog (`←`)**: Mengembalikan pengguna ke katalog utama dalam satu klik.
-2. **Address Pill URL Bersih**: Menampilkan alamat URL resmi aplikasi dengan tombol **Salin Tautan (Copy Link)** cepat.
-3. **Inspektur Token Keamanan (HMAC Token)**: 
-   - Klik badge *HMAC Token Active* untuk membuka modal diagnostik.
-   - Menampilkan rincian User ID, Nama, Email, Unit Kerja, dan string payload token terenkripsi yang sedang aktif dikirimkan ke aplikasi.
-4. **Muat Ulang Aplikasi (`refresh`)**: Me-reload konten di dalam iFrame tanpa me-refresh seluruh halaman peramban.
-5. **Buka di Tab Baru (`open_in_new`)**: Membuka aplikasi secara mandiri di tab peramban terpisah.
-6. **Mode Layar Penuh (`fullscreen`)**: Memaksimalkan jendela aplikasi hingga memenuhi seluruh layar monitor (*Full Screen API*) untuk kenyamanan input data operasional di dermaga/kantor.
-7. **Bilah Diagnostik Keamanan**: Menampilkan atribut sandbox isolasi (`allow-scripts allow-same-origin ...`), status header *Anti-Clickjacking*, dan indikator latensi real-time.
+### Pilihan 2 Mode Tampilan iFrame Live:
+
+Aplikasi web dapat dibuka dalam dua versi tampilan sesuai kebutuhan pengguna:
+
+#### 1. Versi Standar (Portal Wrapper Mode) — `/{kategori}/{slug}`
+Format default yang menampilkan header kendali interaktif portal:
+- **Tombol Kembali ke Katalog (`←`)**: Mengembalikan pengguna ke katalog utama dalam satu klik.
+- **Address Pill URL Bersih**: Menampilkan alamat URL resmi aplikasi dengan tombol **Salin Tautan (Copy Link)** cepat.
+- **Inspektur Token Keamanan (HMAC Token)**: 
+  - Klik badge *HMAC Token Active* untuk membuka modal diagnostik.
+  - Menampilkan rincian User ID, Nama, Email, Unit Kerja, dan string payload token terenkripsi yang sedang aktif dikirimkan ke aplikasi.
+- **Muat Ulang Aplikasi (`refresh`)**: Me-reload konten di dalam iFrame tanpa me-refresh seluruh halaman peramban.
+- **Buka di Tab Baru (`open_in_new`)**: Membuka URL aplikasi secara mandiri di tab peramban terpisah.
+- **Mode Full Frameless (`aspect_ratio`)**: Beralih langsung ke Versi 2 (Layar Penuh Murni).
+- **Layar Penuh Browser (`fullscreen`)**: Memaksimalkan jendela aplikasi hingga memenuhi seluruh layar monitor (*Full Screen API*).
+- **Bilah Diagnostik Keamanan**: Menampilkan atribut sandbox isolasi, status header *Anti-Clickjacking*, dan indikator latensi real-time.
+
+#### 2. Versi Full Layar Penuh Murni (Frameless 100% Viewport Mode) — `/{kategori}/{slug}?mode=full` atau `/full/{kategori}/{slug}`
+Format frameless yang menghilangkan seluruh elemen portal dan memaksimalkan viewport peramban 100% tanpa margin, padding, atau scrollbar ganda:
+- **Judul Halaman Dinamis**: Tag `<title>` otomatis mengikuti judul aplikasi yang diinputkan pengguna saat pendaftaran.
+- **Sumber iFrame Dinamis**: Tag `<iframe src="...">` otomatis memuat URL aplikasi (Google Apps Script / SPA) yang diisi pengaju beserta parameter autentikasi terusan portal.
+- **Tata Letak Bersih Murni**: Menggunakan layout CSS:
+  ```css
+  html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #ffffff;
+  }
+  iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+  }
+  ```
+- **Navigasi Melayang Ringan (*Discreet Floating Quick Switcher*)**:
+  - Terdapat tombol melayang transparan di pojok kanan atas yang muncul saat kursor didekatkan.
+  - Memudahkan pengguna untuk beralih kembali ke **Mode Wrapper** atau ke **Katalog** kapan saja tanpa perlu tombol kembali peramban.
 
 ---
 

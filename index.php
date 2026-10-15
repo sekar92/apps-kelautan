@@ -215,6 +215,15 @@ if (preg_match('#^/mock-app/([a-zA-Z0-9_\-]+)$#', $path, $matches)) {
     exit;
 }
 
+// Direct Full Frameless iFrame Routes: /full/[category_slug]/[app_slug] or /embed/...
+if (preg_match('#^/(?:full|embed)/([a-zA-Z0-9_\-]+)/([a-zA-Z0-9_\-]+)$#', $path, $matches)) {
+    $categorySlug = $matches[1];
+    $appSlug = $matches[2];
+    $_GET['mode'] = 'full';
+    (new AppController())->viewApp($categorySlug, $appSlug);
+    exit;
+}
+
 // Dynamic iFrame Route (FR 5.1): /[category_slug]/[app_slug]
 if (preg_match('#^/([a-zA-Z0-9_\-]+)/([a-zA-Z0-9_\-]+)$#', $path, $matches)) {
     $categorySlug = $matches[1];

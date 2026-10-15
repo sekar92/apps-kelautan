@@ -273,10 +273,13 @@ $popularApps = array_slice($apps, 0, 3);
                                     </div>
                                 </div>
 
-                                <div class="flex items-center justify-between pt-1">
-                                    <span class="inline-flex items-center gap-1 text-[11px] text-secondary font-semibold">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> iFrame Wrapper Aktif
-                                    </span>
+                                <div class="flex items-center justify-between pt-1 gap-2">
+                                    <a class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-secondary text-[11px] font-semibold transition-colors" 
+                                       href="<?= url('/' . e($app['category_slug']) . '/' . e($app['slug']) . '?mode=full') ?>" 
+                                       title="Buka dalam Mode Layar Penuh Murni (Frameless 100%)">
+                                        <span class="material-symbols-outlined text-[14px]">aspect_ratio</span>
+                                        <span>Full Mode</span>
+                                    </a>
                                     <a class="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-lg bg-primary-container text-on-primary font-semibold text-xs hover:bg-tertiary-container transition-colors shadow-xs" 
                                        href="<?= url('/' . e($app['category_slug']) . '/' . e($app['slug'])) ?>">
                                         <span>Buka Aplikasi</span>
